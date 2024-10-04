@@ -25,36 +25,43 @@ jobs:
         run: |
           cd backend
           yarn
+          echo "BE Dependencies Installed"
 
       - name: Check BE Style
         run: |
           cd backend
           yarn eslint
+          echo "BE Style Checked"
 
       - name: Run BE Production
         run: |
           cd backend
           yarn start &
+          echo "BE Prod Running"
 
       - name: Install FE Dependencies
         run: |
           cd frontend
           yarn
+          echo "FE Dependencies Installed"
 
       - name: Check FE Style
         run: |
           cd frontend
           yarn eslint
+          echo "FE Style Checked"
 
       - name: Build Production
         run: |
           cd frontend
           yarn build
+          echo "FE Compiled and Built"
 
       - name: Run FE Production
         run: |
           cd frontend
           yarn start &
+          echo "FE Prod Running"
 
   tag_release:
     needs: deployment_pipeline
