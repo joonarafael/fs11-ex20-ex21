@@ -27,25 +27,34 @@ jobs:
           yarn
 
       - name: Check BE Style
-        run: yarn eslint
+        run: |
+          cd backend
+          yarn eslint
 
       - name: Run BE Production
-        run: yarn start &
+        run: |
+          cd backend
+          yarn start &
 
       - name: Install FE Dependencies
         run: |
-          cd ..
           cd frontend
           yarn
 
       - name: Check FE Style
-        run: yarn eslint
+        run: |
+          cd frontend
+          yarn eslint
 
       - name: Build Production
-        run: yarn build
+        run: |
+          cd frontend
+          yarn build
 
       - name: Run FE Production
-        run: yarn start &
+        run: |
+          cd frontend
+          yarn start &
 
   tag_release:
     needs: deployment_pipeline
