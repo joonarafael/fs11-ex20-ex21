@@ -1,0 +1,60 @@
+name: Deployment Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize]
+
+env:
+  CONDITION: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip') }}
+
+jobs:
+  deployment_pipeline:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install BE Dependencies
+        run: |
+          cd backend
+          yarn
+
+      - name: Check BE Style
+        run: yarn eslint
+
+      - name: Run BE Production
+        run: yarn start &
+
+      - name: Install FE Dependencies
+        run: |
+          cd ..
+          cd frontend
+          yarn
+
+      - name: Check FE Style
+        run: yarn eslint
+
+      - name: Build Production
+        run: yarn build
+
+      - name: Run FE Production
+        run: yarn start &
+
+  tag_release:
+    needs: deployment_pipeline
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Bump version and push tag
+        if: ${{ env.CONDITION == 'true' }}
+        uses: anothrNick/github-tag-action@1.64.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEFAULT_BUMP: patch
