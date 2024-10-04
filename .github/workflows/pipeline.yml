@@ -33,11 +33,11 @@ jobs:
           yarn eslint
           echo "BE Style Checked"
 
-      - name: Run BE Production
+      - name: Run BE
         run: |
           cd backend
-          yarn start &
-          echo "BE Prod Running"
+          yarn dev &
+          echo "BE Running"
 
       - name: Install FE Dependencies
         run: |
@@ -60,7 +60,7 @@ jobs:
       - name: Run FE Production
         run: |
           cd frontend
-          yarn start &
+          yarn preview &
           echo "FE Prod Running"
 
   tag_release:

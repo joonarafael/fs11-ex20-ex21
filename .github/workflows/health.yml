@@ -14,6 +14,6 @@ jobs:
         uses: jtalk/url-health-check-action@fc2fe2a9ca9c9734d992431b749b79350d771fbb
         with:
           # this URL would be the URL of your deployed application!
-          url: https://full-stack-open-pokedex-zjre.onrender.com/
+          url: https://google.com/
           max-attempts: 3
           retry-delay: 5s
