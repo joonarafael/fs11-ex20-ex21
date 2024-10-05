@@ -64,10 +64,7 @@ jobs:
       - name: Run Cypress E2E Tests
         uses: cypress-io/github-action@v5
         with:
-          command: |
-            cd frontend
-            yarn test:e2e
-          wait-on: http://localhost:5000
+          command: yarn test:e2e
 
   tag_release:
     needs: deployment_pipeline
