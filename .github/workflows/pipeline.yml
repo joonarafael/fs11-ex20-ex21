@@ -25,43 +25,49 @@ jobs:
         run: |
           cd backend
           yarn
-          echo "BE Dependencies Installed"
 
       - name: Check BE Style
         run: |
           cd backend
           yarn eslint
-          echo "BE Style Checked"
 
       - name: Run BE
         run: |
           cd backend
           yarn dev &
-          echo "BE Running"
 
       - name: Install FE Dependencies
         run: |
           cd frontend
           yarn
-          echo "FE Dependencies Installed"
 
       - name: Check FE Style
         run: |
           cd frontend
           yarn eslint
-          echo "FE Style Checked"
 
       - name: Build Production
         run: |
           cd frontend
           yarn build
-          echo "FE Compiled and Built"
+
+      - name: Run Unit Tests
+        run: |
+          cd frontend
+          yarn test
 
       - name: Run FE Production
         run: |
           cd frontend
           yarn preview &
-          echo "FE Prod Running"
+
+      - name: Run Cypress E2E Tests
+        uses: cypress-io/github-action@v5
+        with:
+          command: |
+            cd frontend
+            yarn test:e2e
+          wait-on: http://localhost:5000
 
   tag_release:
     needs: deployment_pipeline
