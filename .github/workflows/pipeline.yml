@@ -58,13 +58,19 @@ jobs:
 
       - name: Run FE Production
         run: |
+          pwd
+          ls -la
           cd frontend
           yarn preview &
 
       - name: Run Cypress E2E Tests
         uses: cypress-io/github-action@v5
         with:
-          command: yarn test:e2e
+          comand: |
+            pwd
+            ls -la
+            cd frontend
+            yarn test:e2e
 
   tag_release:
     needs: deployment_pipeline
