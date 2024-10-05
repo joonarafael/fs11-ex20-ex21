@@ -64,7 +64,7 @@ jobs:
       - name: Run Cypress E2E Tests
         run: |
           cd frontend
-          yarn cypress:run
+          yarn test:e2e
 
   tag_release:
     needs: deployment_pipeline
