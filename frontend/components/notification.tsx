@@ -9,18 +9,10 @@ const Notification = ({ isError, message }: NotificationProps) => {
 	}
 
 	if (isError) {
-		return (
-			<div style={{ color: "red" }}>
-				<p>{message}</p>
-			</div>
-		);
+		return <div style={{ color: "red" }}>{message}</div>;
 	}
 
-	return (
-		<div style={{ color: "green" }}>
-			<p>{message}</p>
-		</div>
-	);
+	return <div style={{ color: "green" }}>{message}</div>;
 };
 
 export default Notification;
